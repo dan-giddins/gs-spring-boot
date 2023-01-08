@@ -19,15 +19,17 @@ public class HelloController {
 		String[] array = { "asd", "sdfsdf", "fdsgjkdfsbgjklfdgnkldf", "sdfjksdf", "dfsd", "123456789",
 				"sdfsdjksdfdsfdsfsdfdsfdsfdfsdjklfdsf" };
 		var list = Arrays.asList(array);
-		var stream = list.stream();
-		var filter = stream.filter(x -> x.length() < 10);
-		var map = filter.map(x -> x.toUpperCase() + "upper");
-		var result = map.reduce(
-				"BANANA",
-				(curr, next) -> curr.length() > next.length()
-						? curr
-						: next);
-		// var result = map.collect(Collectors.toList());
-		return result.toString();
+		var longest = list.stream()
+				.filter(x -> x.length() < 10)
+				.map(x -> x.toUpperCase() + "upper")
+				.reduce(
+						"BANANA",
+						(curr, next) -> curr.length() > next.length()
+								? curr
+								: next);
+		var tooBig = list.stream()
+				.filter(x -> x.length() >= 10)
+				.collect(Collectors.toList());
+		return longest + " but also " + tooBig.toString();
 	}
 }
