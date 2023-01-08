@@ -14,12 +14,12 @@ public class HelloController {
 		return "Greetings from Spring Boot!";
 	}
 
-	@GetMapping("/teststream")
-	public String testStream() {
-		String[] array = { "asd", "sdfsdf", "fdsgjkdfsbgjklfdgnkldf", "sdfjksdf", "dfsd", "123456789",
+	@GetMapping("/teststreams")
+	public String testStreams() {
+		String[] myArray = { "asd", "sdfsdf", "fdsgjkdfsbgjklfdgnkldf", "sdfjksdf", "dfsd", "123456789",
 				"sdfsdjksdfdsfdsfsdfdsfdsfdfsdjklfdsf" };
-		var list = Arrays.asList(array);
-		var longest = list.stream()
+		var myList = Arrays.asList(myArray);
+		var longest = myList.stream()
 				.filter(x -> x.length() < 10)
 				.map(x -> x.toUpperCase() + "upper")
 				.reduce(
@@ -27,7 +27,7 @@ public class HelloController {
 						(curr, next) -> curr.length() > next.length()
 								? curr
 								: next);
-		var tooBig = list.stream()
+		var tooBig = myList.stream()
 				.filter(x -> x.length() >= 10)
 				.collect(Collectors.toList());
 		return longest + " but also " + tooBig.toString();
